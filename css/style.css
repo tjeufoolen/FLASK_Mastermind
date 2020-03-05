@@ -1,0 +1,122 @@
+html {
+    --red-color: #ff3d3d;
+    --orange-color: #f2903a;
+    --yellow-color: #ffe75f;
+    --mintgreen-color: #b3fc60;
+    --green-color: #17c72b;
+    --aqua-color: #3bfcff;
+    --cyan-color: #225ffa;
+    --pink-color: #fe70f9;
+    --purple-color: #821eb5;
+    --brown-color: #673d2b;    
+    --default-bg: #ececec;
+    --border-color: #3c3c3c;
+
+    font-size: 16px;
+    font-family: 'Nunito Sans', sans-serif;
+    
+    --default-spacing: 10px;
+    --border-radius: 3px;
+}
+
+h1,h2 {
+    font-family: 'Lobster', cursive;
+}
+.box {
+    padding: var(--default-spacing);
+    border-radius: var(--border-radius);
+    background: var(--default-bg);
+}
+
+
+/*
+* Game
+*/
+.game .input-pin {
+    display: inline-block;
+    background: var(--default-bg);
+    border: 2px solid var(--border-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+/* Turn */
+.game .game-turns .turn {
+    text-align: center;
+    border-top: 1px solid white;
+}
+.game .game-turns .turn:first-child {
+    border-top: none;
+}
+.game .game-turns .turn .turn-feedback-pins {
+    border: 1px solid var(--border-color);
+}
+.game .game-turns .turn .turn-feedback-pins .input-pin {
+    width: 25px;
+    height: 25px;
+}
+.game .game-turns .turn .turn-feedback-pins,
+.game .game-turns .turn .turn-answer-pins {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game .game-turns .turn .turn-answer-pins {
+    background: var(--border-color);
+    padding: var(--default-spacing);
+}
+
+/* Input */
+.game .game-input {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    min-height: 50px;
+    padding: var(--default-spacing);
+    border: 1px solid var(--border-color);
+}
+.game .game-input button[type='submit'] {
+    margin-top: 20px;
+}
+
+/* Color options */
+.game .color-options {
+    margin-top: 50px;
+}
+.game .color-options .options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--default-spacing);
+    border: 1px solid var(--border-color);
+}
+
+/* Ingame statistic */
+.game .ingame-stats {
+    background: var(--default-bg);
+}
+.game .ingame-stats .ingame-statistic {
+    padding: var(--default-spacing);
+}
+.game .ingame-stats .ingame-statistic h3 {
+    font-size: 1.2rem;
+}
+
+
+/*
+* Page specific
+*/
+.home .container p {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.home .form-group {
+    margin-bottom: 0;
+}
+.home .form-group label {
+    padding-right: var(--default-spacing);
+}

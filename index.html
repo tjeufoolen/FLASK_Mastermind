@@ -5,19 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Mastermind</title>
-
+    
     <!-- Fonts -->
     <link rel="stylesheet" href="./static/css/fontawesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Nunito+Sans:400,600,700&display=swap" rel="stylesheet">
-
+    
     <!-- Boostrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+    
     <!-- Styling -->
-    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    <h1>Hello World</h1>
+<body class="home">
+    <header>
+        <div class="container text-center py-5">
+            <h1>Mastermind</h1>
+            <p class="py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt consequatur accusantium blanditiis sapiente similique ab distinctio est officia doloribus adipisci reiciendis, inventore magni ea quisquam perferendis tempore? Sapiente, maxime neque.</p>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="row justify-content-center mx-1">
+                <div class="col-12 col-md-8 col-lg-6 box text-center">
+                    <form action="/game/create" method="POST">
+                        <h2 class="my-3">Personal details</h2>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name">
+                        </div>
+
+                        <hr>
+                        <h2 class="my-4">Game options</h2>
+                        <div class="form-group">
+                            <label for="color_amount">Amount of colors: </label>
+                            <select name="color_amount" id="color_amount">
+                                <option value="6" selected>6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="positions">Positions: </label>
+                            <select name="positions" id="positions">
+                                <option value="4" selected>4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="double_colors">Allow double color placement: </label>
+                            
+                            <input type="radio" name="double_colors" id="yes" value="true">
+                            <label for="yes">Yes</label>
+
+                            <input type="radio" name="double_colors" id="no" value="false" checked>
+                            <label for="no">No</label>
+                        </div>
+                        <hr>
+                        <button class="btn btn-primary mt-2 mb-4" type="submit">Create game</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
     
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
