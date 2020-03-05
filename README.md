@@ -8,9 +8,18 @@ Assessment python blok 7
     
 ## Development tips
 Automatic rebuilding on code change:
+
+Linux/MacOS
 ```
-export FLASK_APP=main.py
+export FLASK_APP=app.py
 export FLASK_ENV=development
+flask run
+```
+
+Windows
+```
+set FLASK_APP=app.py
+set FLASK_ENV=development
 flask run
 ```
 
