@@ -1,7 +1,7 @@
 {% macro error(errorsList) -%}
     {% if errorsList |length >0 %}
         {% for error in errorsList %}
-            <div class="bg-danger text-white rounded p-1">{{ error }}</div>
+            <div class="bg-danger text-white rounded p-1 mx-1 my-2">{{ error }}</div>
         {% endfor %}
     {% endif %}
 {%- endmacro %}
