@@ -5,6 +5,7 @@ Assessment python blok 7
 - virtualenvironment (venv)
 - pip packages
     - flask
+    - python-dotenv
     
 ## Development tips
 Automatic rebuilding on code change:
