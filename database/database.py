@@ -1,6 +1,6 @@
 import sqlite3
 import pathlib
-from models import Code, Game
+from models import Code, Game, Player
 
 
 def create_connection(db_file):
@@ -32,7 +32,7 @@ class Database:
         sql = ''' INSERT INTO game(player_name, double_colors, amount_of_colors, amount_of_positions, created_at, code)
                       VALUES(?,?,?,?,?,?) '''
         cur = self.conn.cursor()
-        cur.execute(sql, (game.player_name, game.double_colors, game.amount_of_colors, game.amount_of_positions,
+        cur.execute(sql, (game.player.name, game.double_colors, game.amount_of_colors, game.amount_of_positions,
                           game.created_at, game.code.colors))
         self.conn.commit()
         return cur.lastrowid
@@ -49,7 +49,7 @@ class Database:
 
         result = cur.fetchone()
         if result:
-            return Game(player_name=result['player_name'], double_colors=result['double_colors'],
+            return Game(player=Player(result['player_name']), double_colors=result['double_colors'],
                         amount_of_colors=result['amount_of_colors'], amount_of_positions=result['amount_of_positions'],
                         created_at=result['created_at'], completed_at=result['completed_at'],
                         code=Code(result['code']), _id=id)

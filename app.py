@@ -2,7 +2,7 @@ import settings
 from database.database import Database
 from flask import Flask, render_template, request, redirect, url_for, abort
 from templates.forms import CreateGameForm
-from models import Game
+from models import Game, Player
 
 app = Flask(__name__)
 app.secret_key = settings.SECRET_KEY
@@ -14,7 +14,7 @@ def home():
     form = CreateGameForm()
 
     if request.method == 'POST' and form.validate():
-        g = Game(player_name=form.player_name.data,
+        g = Game(player=Player(form.player_name.data),
                  double_colors=form.double_colors.data,
                  amount_of_colors=form.amount_of_colors.data,
                  amount_of_positions=form.amount_of_positions.data)

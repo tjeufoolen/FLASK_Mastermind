@@ -6,10 +6,10 @@ import random
 class Game:
     __colors = ['red', 'orange', 'yellow', 'mintgreen', 'green', 'aqua', 'cyan', 'pink', 'purple', 'brown']
 
-    def __init__(self, player_name, double_colors, amount_of_colors, amount_of_positions,
+    def __init__(self, player, double_colors, amount_of_colors, amount_of_positions,
                  created_at=None, completed_at=None, code=None, _id=None):
         # Set instance variables
-        self.player_name = player_name
+        self.player = player
         self.double_colors = double_colors
         self.amount_of_colors = amount_of_colors
         self.amount_of_positions = amount_of_positions
