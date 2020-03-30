@@ -1,6 +1,9 @@
+import settings
+from database.database import Database
 from flask import Flask, render_template
 
 app = Flask(__name__)
+db = Database(settings.DATABASE_FILE)
 
 
 @app.route('/')
