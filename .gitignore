@@ -162,3 +162,6 @@ __pycache__/
 
 # Database
 *.sqlite
+
+# Environment variables
+.env
