@@ -2,6 +2,7 @@ PRAGMA foreign_keys = OFF;
 
 BEGIN;
 
+DROP TABLE "game";
 CREATE TABLE "game"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "player_name" VARCHAR(45) NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE "game"(
   "amount_of_positions" INTEGER NOT NULL
 );
 
+DROP TABLE "game_turn";
 CREATE TABLE "game_turn"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "game_id" INTEGER NOT NULL,
