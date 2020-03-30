@@ -20,8 +20,6 @@ class CreateGameForm(FlaskForm):
                                coerce=int)
 
     def validate(self):
-        print('cool!')
-
         if not FlaskForm.validate(self):
             return False
 
