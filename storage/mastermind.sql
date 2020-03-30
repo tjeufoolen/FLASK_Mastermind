@@ -25,7 +25,6 @@ CREATE TABLE "game_turn"(
     REFERENCES "game"("id")
 );
 
-DROP INDEX "game_turn.fk_game_turn_game1_idx";
 CREATE INDEX "game_turn.fk_game_turn_game1_idx" ON "game_turn" ("game_id");
 
 COMMIT;
