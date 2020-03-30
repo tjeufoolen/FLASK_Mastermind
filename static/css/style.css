@@ -21,8 +21,13 @@ html {
     --border-radius: 3px;
 }
 
-h1,h2 {
+h1,h2,.h1,.h2 {
     font-family: 'Lobster', cursive;
+    color: black;
+}
+h1:hover,h2:hover,.h1:hover,.h2:hover {
+    color: black;
+    text-decoration: none;
 }
 .box {
     padding: var(--default-spacing);

@@ -1,8 +1,9 @@
 {% extends 'layouts/base.html' %}
+{% import 'macros/validation.html' as validation %}
 
 {% block header %}
     <div class="container text-center py-5">
-        <h1>Mastermind</h1>
+        <a href="/" class="h1">Mastermind</a>
         <p class="py-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt consequatur accusantium
             blanditiis sapiente similique ab distinctio est officia doloribus adipisci reiciendis, inventore magni ea
             quisquam perferendis tempore? Sapiente, maxime neque.</p>
@@ -13,48 +14,46 @@
     <div class="container">
         <div class="row justify-content-center mx-1">
             <div class="col-12 col-md-8 col-lg-6 box text-center">
-                <form action="/game/create" method="POST">
+                <form method="POST">
+                    {{ form.csrf_token }}
+
                     <h2 class="my-3">Personal details</h2>
+                    {# Playername #}
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name">
+                        {{ form.player_name.label }}
+                        {{ form.player_name() }}
+                        {{ validation.error(form.player_name.errors) }}
                     </div>
 
                     <hr>
+
                     <h2 class="my-4">Game options</h2>
+                    {# Amount of colors #}
                     <div class="form-group">
-                        <label for="color_amount">Amount of colors: </label>
-                        <select name="color_amount" id="color_amount">
-                            <option value="6" selected>6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
+                        {{ form.amount_of_colors.label }}
+                        {{ form.amount_of_colors() }}
+                        {{ validation.error(form.amount_of_colors.errors) }}
                     </div>
+                    {# Amount of positions #}
                     <div class="form-group">
-                        <label for="positions">Positions: </label>
-                        <select name="positions" id="positions">
-                            <option value="4" selected>4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
+                        {{ form.amount_of_positions.label }}
+                        {{ form.amount_of_positions() }}
+                        {{ validation.error(form.amount_of_positions.errors) }}
+                    </div>
+                    {# Allow double color placement #}
+                    <div class="form-group">
+                        {{ form.double_colors.label }}
+                        {% for field in form.double_colors %}
+                            <tr>
+                                <td>{{ field }}</td>
+                                <td>{{ field.label }}</td>
+                            </tr>
+                        {% endfor %}
+                        {{ validation.error(form.double_colors.errors) }}
                     </div>
 
-                    <div class="form-group">
-                        <label for="double_colors">Allow double color placement: </label>
-
-                        <input type="radio" name="double_colors" id="yes" value="true">
-                        <label for="yes">Yes</label>
-
-                        <input type="radio" name="double_colors" id="no" value="false" checked>
-                        <label for="no">No</label>
-                    </div>
                     <hr>
+
                     <button class="btn btn-primary mt-2 mb-4" type="submit">Create game</button>
                 </form>
             </div>

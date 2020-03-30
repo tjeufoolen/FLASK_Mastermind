@@ -6,6 +6,7 @@ Assessment python blok 7
 - pip packages
     - flask
     - python-dotenv
+    - WTForms
     
 ## Development tips
 Automatic rebuilding on code change:

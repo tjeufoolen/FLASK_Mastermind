@@ -1,14 +1,21 @@
 import settings
 from database.database import Database
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
+from templates.forms import CreateGameForm
 
 app = Flask(__name__)
+app.secret_key = settings.SECRET_KEY
 db = Database(settings.DATABASE_FILE)
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home():
-    return render_template('index.html')
+    form = CreateGameForm()
+
+    if request.method == 'POST' and form.validate():
+        return redirect('/game')
+
+    return render_template('index.html', form=form)
 
 
 @app.route('/game')
