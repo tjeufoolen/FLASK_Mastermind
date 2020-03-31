@@ -1,6 +1,7 @@
 import sqlite3
 import pathlib
 import json
+import datetime as dt
 from models import Game, Player, GameTurn
 
 
@@ -32,10 +33,12 @@ class Database:
             """
         sql = ''' INSERT INTO game(player_name, double_colors, amount_of_colors, amount_of_positions, created_at, code, 
                   color_options) VALUES(?,?,?,?,?,?,?) '''
+
         cur = self.conn.cursor()
         cur.execute(sql, (game.player.name, game.double_colors, game.amount_of_colors, game.amount_of_positions,
                           game.created_at, json.dumps(game.code), json.dumps(game.color_options)))
         self.conn.commit()
+
         return cur.lastrowid
 
     def get_game(self, id):
@@ -44,8 +47,10 @@ class Database:
             :param id:
             :return: game object
             """
+        sql = '''SELECT * FROM game WHERE id=?'''
+
         cur = self.conn.cursor()
-        cur.execute('''SELECT * FROM game WHERE id=?''', (id,))
+        cur.execute(sql, (id,))
         game = cur.fetchone()
 
         if game:
@@ -57,28 +62,84 @@ class Database:
             return g
         return None
 
+    def set_game_completed(self, id):
+        """ Sets completed_at on game row
+                specified by the id
+            :param id:
+            """
+        sql = '''UPDATE game SET completed_at = ? WHERE id = ?'''
+
+        cur = self.conn.cursor()
+        cur.execute(sql, (dt.datetime.now(), id))
+        self.conn.commit()
+
     def get_game_turns(self, game_id):
         """ Get game turns from games turn table
                 specified by the game id
             :param game_id:
             :return: Array of game turn objects
             """
+        sql = '''SELECT * FROM game_turn WHERE game_id = ?'''
+
         cur = self.conn.cursor()
-        cur.execute('''SELECT * FROM game_turn WHERE game_id = ?''', (game_id,))
-        rows = cur.fetchall()
+        cur.execute(sql, (game_id,))
 
         turns = []
-        for row in rows:
+        for row in cur.fetchall():
             turns.append(GameTurn(game_id=["game_id"], _id=row["id"], submitted_at=row["submitted_at"],
                                   code_guessed=json.loads(row["code_guessed"])))
 
         return turns
 
     def create_game_turn(self, turn):
+        """ Create a new turn in the game_turn table
+            :param turn:
+            """
         sql = '''INSERT INTO game_turn (game_id, submitted_at, code_guessed) VALUES (?,?,?)'''
+
         cur = self.conn.cursor()
         cur.execute(sql, (turn.game_id, turn.submitted_at, json.dumps(turn.code_guessed)))
         self.conn.commit()
+
+    def get_top_players(self):
+        """ Get top 10 players
+            :return Array of dictionaries:
+            """
+        sql = '''SELECT player_name, COUNT(id) AS total_wins FROM game WHERE completed_at IS NOT NULL 
+                 GROUP BY player_name ORDER BY total_wins DESC LIMIT 10;'''
+
+        cur = self.conn.cursor()
+        cur.execute(sql)
+
+        players = []
+        for row in cur.fetchall():
+            players.append({
+                "player_name": row["player_name"],
+                "total_wins": row["total_wins"]
+            })
+
+        return players
+
+    def get_top_games(self):
+        """ Get top 10 games
+            :return Array of dictionaries:
+            """
+        sql = '''SELECT game.id, game.player_name, COUNT(game_turn.id) AS total_turns FROM game 
+                 LEFT JOIN game_turn ON game_turn.game_id = game.id WHERE completed_at IS NOT NULL 
+                 GROUP BY game.id ORDER BY total_turns LIMIT 10;'''
+
+        cur = self.conn.cursor()
+        cur.execute(sql)
+
+        games = []
+        for row in cur.fetchall():
+            games.append({
+                "game_id": row["id"],
+                "player_name": row["player_name"],
+                "total_turns": row["total_turns"]
+            })
+
+        return games
 
     def close_connection(self):
         """ Close the connection to the SQLite database

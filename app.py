@@ -32,26 +32,44 @@ def game(id):
     if not g:
         abort(404)
 
-    if request.method == 'POST':
-        code_guessed = [string for string in request.form.getlist('answer[]') if string != "" and string in g.color_options]
+    # Redirect back to home if already completed
+    if g.completed_at:
+        return redirect(url_for('home'))
 
+    if request.method == 'POST':
+
+        # Validate input
+        code_guessed = [string for string in request.form.getlist('answer[]') if string != "" and string in g.color_options]
         if len(code_guessed) == g.amount_of_positions:
             turn = GameTurn(game_id=id, code_guessed=code_guessed)
             db.create_game_turn(turn)
 
-        return redirect(url_for('game', id=g.id))
+            # Check if player won
+            if turn.code_guessed == g.code:
+                db.set_game_completed(g.id)
+                return redirect(url_for('win', id=g.id))
+
+            return redirect(url_for('game', id=g.id))
 
     return render_template('game.html', game=g, cheatmode=settings.CHEAT_MODE)
 
 
-@app.route('/win')
-def win():
-    return render_template('win.html')
+@app.route('/win/<id>', methods=["GET"])
+def win(id):
+    g = db.get_game(id)
+
+    if not g or not g.completed_at:
+        abort(404)
+
+    return render_template('win.html', game=g)
 
 
 @app.route('/leaderboard')
 def leaderboard():
-    return render_template('leaderboard.html')
+    top_games = db.get_top_games()
+    top_players = db.get_top_players()
+
+    return render_template('leaderboard.html', games=top_games, players=top_players)
 
 
 @app.errorhandler(404)
