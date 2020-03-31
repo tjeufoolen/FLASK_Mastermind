@@ -7,6 +7,15 @@ Assessment python blok 7
     - Flask
     - Flask-WTF
     - python-dotenv
+
+## Getting Started
+1. Clone this repository.
+2. Create a `mastermind.db` file inside the `storage` folder.
+3. Execute the sql from `storage/mastermind.sql` onto the `mastermind.db` you just created.
+4. Copy and rename `.env.example` to `.env`.
+5. Fill in your credentials inside the `.env`.
+6. Run the flask program. (For tips on how to checkout the #Development tips below)
+7. Enjoy! :tada:
     
 ## Development tips
 Automatic rebuilding on code change:
