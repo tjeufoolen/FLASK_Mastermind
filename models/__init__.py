@@ -1,5 +1,5 @@
 from .game import Game
-from .code import Code
+from .game_turn import GameTurn
 from .player import Player
 
-__all__ = ["Game", "Code", "Player"]
+__all__ = ["Game", "GameTurn", "Player"]

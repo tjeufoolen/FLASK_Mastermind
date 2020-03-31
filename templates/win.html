@@ -1,21 +1,15 @@
 {% extends 'layouts/base.html' %}
 
-{% block header %}
-    <div class="container text-center py-5">
-        <h1>Mastermind</h1>
-    </div>
-{% endblock %}
-
 {% block content %}
     <div class="container">
         <div class="row justify-content-center mx-1">
             <div class="col-12 col-md-8 col-lg-6 box text-center py-3">
                 <h2>Congratulations!</h2>
-                <span>You have cracked the code in 10 turns!</span>
+                <span>You have cracked the code in {{ game.turns|length}} turns!</span>
 
                 <hr>
-                <a href="./" class="btn btn-primary m-1">Start a new game</a>
-                <a href="./leaderboard" class="btn btn-primary m-1">Global leaderboard</a>
+                <a href="/" class="btn btn-primary m-1">Start a new game</a>
+                <a href="/leaderboard" class="btn btn-primary m-1">Global leaderboard</a>
             </div>
         </div>
     </div>
