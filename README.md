@@ -4,9 +4,9 @@ Assessment python blok 7
 ## Prerequisites
 - virtualenvironment (venv)
 - pip packages
-    - flask
+    - Flask
+    - Flask-WTF
     - python-dotenv
-    - WTForms
     
 ## Development tips
 Automatic rebuilding on code change:
