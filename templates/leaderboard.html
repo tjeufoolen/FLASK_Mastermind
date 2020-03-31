@@ -1,13 +1,62 @@
 {% extends 'layouts/base.html' %}
 
-{% block header %}
-    <div class="container text-center py-5">
-        <h1>Mastermind</h1>
-    </div>
-{% endblock %}
-
 {% block content %}
     <div class="container">
 
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Top games</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Game id</th>
+                            <th scope="col">Player name</th>
+                            <th scope="col">Total turns</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in games %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ row.game_id }}</td>
+                                <td>{{ row.player_name }}</td>
+                                <td>{{ row.total_turns }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <h2>Top players</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Player name</th>
+                            <th scope="col">Total wins</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in players %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ row.player_name }}</td>
+                                <td>{{ row.total_wins }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="box text-center py-3 px-5">
+            <a class="btn btn-primary" role="button" href="/">Back to home</a>
+        </div>
     </div>
 {% endblock %}

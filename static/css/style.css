@@ -10,6 +10,8 @@ html {
     --pink-color: #fe70f9;
     --purple-color: #821eb5;
     --brown-color: #673d2b;
+    --white-color: #ffffff;
+    --black-color: #000000;
 
     --default-bg: #ececec;
     --border-color: #3c3c3c;
@@ -29,11 +31,30 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
     color: black;
     text-decoration: none;
 }
+a {
+    font-family: 'Nunito Sans', sans-serif;
+}
 .box {
     padding: var(--default-spacing);
     border-radius: var(--border-radius);
     background: var(--default-bg);
 }
+
+/*
+* Color helpers
+*/
+.bg-red { background: var(--red-color) !important; }
+.bg-orange { background: var(--orange-color) !important; }
+.bg-yellow { background: var(--yellow-color) !important; }
+.bg-mintgreen { background: var(--mintgreen-color) !important; }
+.bg-green { background: var(--green-color) !important; }
+.bg-aqua { background: var(--aqua-color) !important; }
+.bg-cyan { background: var(--cyan-color) !important; }
+.bg-pink { background: var(--pink-color) !important; }
+.bg-purple { background: var(--purple-color) !important; }
+.bg-brown { background: var(--brown-color) !important; }
+.bg-black { background: var(--black-color) !important; }
+.bg-white { background: var(--white-color) !important; }
 
 
 /*
@@ -42,10 +63,18 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
 .game .input-pin {
     display: inline-block;
     background: var(--default-bg);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     width: 50px;
     height: 50px;
     border-radius: 50px;
+}
+.game .input-pin.input-pin-small {
+    width: 20px;
+    height: 20px;
+}
+.game .input-pin.hovered {
+    background-color: blue;
+    opacity: 0.5;
 }
 
 /* Turn */
@@ -102,14 +131,15 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
     border: 1px solid var(--border-color);
 }
 
-/* Ingame statistic */
-.game .ingame-stats {
+/* Ingame sidebar */
+.game .ingame-sidebar {
     background: var(--default-bg);
+    padding: 20px 10px;
 }
-.game .ingame-stats .ingame-statistic {
+.game .ingame-sidebar .ingame-sidebar-container {
     padding: var(--default-spacing);
 }
-.game .ingame-stats .ingame-statistic h3 {
+.game .ingame-sidebar .ingame-sidebar-container h3 {
     font-size: 1.2rem;
 }
 

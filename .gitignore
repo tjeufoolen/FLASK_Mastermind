@@ -161,7 +161,7 @@ __pycache__/
 *.py[cod]
 
 # Database
-*.sqlite
+*.db
 
 # Environment variables
 .env
