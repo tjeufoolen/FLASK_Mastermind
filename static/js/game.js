@@ -24,6 +24,10 @@ gameInputs.forEach(input => {
         e.target.classList.add("input-pin", `bg-${color}`);
         e.target.querySelector("input[type='hidden']").value = color;
 
+        if (draggedElement.parentElement.dataset.doubleColors !== "1") {
+            draggedElement.remove();
+        }
+
         validate();
     });
     input.addEventListener("dragover", function (e) {
@@ -31,7 +35,7 @@ gameInputs.forEach(input => {
     });
 });
 
-// validate();
+validate();
 
 function validate() {
     const submitBtn = document.querySelector("button[type='submit']");

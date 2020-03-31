@@ -23,7 +23,7 @@
 
                     {% for turn in game.turns %}
                         <div class="row turn">
-                            <div class="col-3 turn-feedback-pins">
+                            <div class="col-3 turn-feedback-pins flex-wrap">
                                 {% for color in turn.get_feedback_pins(game.code) %}
                                     <div class="input-pin bg-{{ color }}"></div>
                                 {% endfor %}
@@ -60,9 +60,9 @@
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-9 color-options">
-                        <h2 class="text-center">Color options</h2>
+                        <h2 class="text-center">Color options <a class="btn btn-secondary py-1" href="/game/{{ game.id }}">Reset</a></h2>
 
-                        <div class="options">
+                        <div class="options" data-double-colors="{{ game.double_colors }}">
                             {% for color in game.color_options %}
                                 <div class="input-pin bg-{{ color }}" data-color="{{ color }}" draggable="true"></div>
                             {% endfor %}
