@@ -20,6 +20,8 @@
             <div class="col-9">
                 <!-- Old turns -->
                 <div class="game-turns">
+
+                    {% for turn in game.turns %}
                     <div class="row turn">
                         <div class="col-3 turn-feedback-pins">
                             <div class="input-pin"></div>
@@ -30,82 +32,26 @@
                             <div class="input-pin"></div>
                         </div>
                         <div class="col-9 turn-answer-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
+                            {% for color in turn.code_guessed %}
+                                <div class="input-pin bg-{{ color }}"></div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="row turn">
-                        <div class="col-3 turn-feedback-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                        <div class="col-9 turn-answer-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                    </div>
-                    <div class="row turn">
-                        <div class="col-3 turn-feedback-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                        <div class="col-9 turn-answer-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                    </div>
-                    <div class="row turn">
-                        <div class="col-3 turn-feedback-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                        <div class="col-9 turn-answer-pins">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
 
                 <!-- Input -->
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-9 game-input">
-                        <form action="/game/answer" method="POST">
+                        <form action="/game/{{ game.id }}" method="POST">
                             <div class="input-pins">
-                                <div class="input-pin"></div>
-                                <div class="input-pin"></div>
-                                <div class="input-pin"></div>
-                                <div class="input-pin"></div>
-                                <div class="input-pin"></div>
-                                <div class="input-pin"></div>
+                                {% for pos in range(game.amount_of_positions) %}
+                                    <div class="input-pin">
+                                        <input type="hidden" name="answer[]">
+                                    </div>
+                                {% endfor %}
                             </div>
 
                             <button class="btn btn-primary" type="submit">Submit answer</button>
@@ -120,12 +66,9 @@
                         <h2 class="text-center">Color options</h2>
 
                         <div class="options">
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
-                            <div class="input-pin"></div>
+                            {% for color in game.color_options %}
+                                <div class="input-pin bg-{{ color }}" data-color="{{ color }}" draggable="true"></div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -135,14 +78,28 @@
                 <div class="ingame-stats">
                     <div class="ingame-statistic">
                         <h3>Name</h3>
-                        <span>Tjeu</span>
+                        <span>{{ game.player.name }}</span>
                     </div>
                     <div class="ingame-statistic">
                         <h3>Turns</h3>
-                        <span>4</span>
+                        <span>{{ game.turns|length }}</span>
                     </div>
+
+                    {% if cheatmode %}
+                        <div class="ingame-statistic cheatmode">
+                            <h3>Code</h3>
+
+                            {% for color in game.code %}
+                                <div class="input-pin bg-{{ color }}"></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/game.js') }}"></script>
 {% endblock %}

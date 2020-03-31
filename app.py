@@ -2,7 +2,7 @@ import settings
 from database.database import Database
 from flask import Flask, render_template, request, redirect, url_for, abort
 from templates.forms import CreateGameForm
-from models import Game, Player
+from models import Game, Player, GameTurn
 
 app = Flask(__name__)
 app.secret_key = settings.SECRET_KEY
@@ -25,14 +25,23 @@ def home():
     return render_template('index.html', form=form)
 
 
-@app.route('/game/<id>', methods=["GET"])
+@app.route('/game/<id>', methods=["GET", "POST"])
 def game(id):
     g = db.get_game(id)
 
     if not g:
         abort(404)
 
-    return render_template('game.html')
+    if request.method == 'POST':
+        code_guessed = [string for string in request.form.getlist('answer[]') if string != "" and string in g.color_options]
+
+        if len(code_guessed) == g.amount_of_positions:
+            turn = GameTurn(game_id=id, code_guessed=code_guessed)
+            db.create_game_turn(turn)
+
+        return redirect(url_for('game', id=g.id))
+
+    return render_template('game.html', game=g, cheatmode=settings.CHEAT_MODE)
 
 
 @app.route('/win')

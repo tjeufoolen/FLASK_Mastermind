@@ -1,6 +1,7 @@
 import sqlite3
 import pathlib
-from models import Code, Game, Player
+import json
+from models import Game, Player, GameTurn
 
 
 def create_connection(db_file):
@@ -29,11 +30,11 @@ class Database:
             :param game:
             :return: game id
             """
-        sql = ''' INSERT INTO game(player_name, double_colors, amount_of_colors, amount_of_positions, created_at, code)
-                      VALUES(?,?,?,?,?,?) '''
+        sql = ''' INSERT INTO game(player_name, double_colors, amount_of_colors, amount_of_positions, created_at, code, 
+                  color_options) VALUES(?,?,?,?,?,?,?) '''
         cur = self.conn.cursor()
         cur.execute(sql, (game.player.name, game.double_colors, game.amount_of_colors, game.amount_of_positions,
-                          game.created_at, game.code.colors))
+                          game.created_at, json.dumps(game.code), json.dumps(game.color_options)))
         self.conn.commit()
         return cur.lastrowid
 
@@ -43,18 +44,41 @@ class Database:
             :param id:
             :return: game object
             """
-        sql = '''SELECT * FROM game WHERE id=?'''
         cur = self.conn.cursor()
-        cur.execute(sql, (id,))
+        cur.execute('''SELECT * FROM game WHERE id=?''', (id,))
+        game = cur.fetchone()
 
-        result = cur.fetchone()
-        if result:
-            return Game(player=Player(result['player_name']), double_colors=result['double_colors'],
-                        amount_of_colors=result['amount_of_colors'], amount_of_positions=result['amount_of_positions'],
-                        created_at=result['created_at'], completed_at=result['completed_at'],
-                        code=Code(result['code']), _id=id)
-
+        if game:
+            turns = self.get_game_turns(id)
+            g = Game(player=Player(game['player_name']), double_colors=game['double_colors'],
+                     amount_of_colors=game['amount_of_colors'], amount_of_positions=game['amount_of_positions'],
+                     color_options=json.loads(game['color_options']), created_at=game['created_at'],
+                     completed_at=game['completed_at'], code=json.loads(game['code']), _id=id, turns=turns)
+            return g
         return None
+
+    def get_game_turns(self, game_id):
+        """ Get game turns from games turn table
+                specified by the game id
+            :param game_id:
+            :return: Array of game turn objects
+            """
+        cur = self.conn.cursor()
+        cur.execute('''SELECT * FROM game_turn WHERE game_id = ?''', (game_id,))
+        rows = cur.fetchall()
+
+        turns = []
+        for row in rows:
+            turns.append(GameTurn(game_id=["game_id"], _id=row["id"], submitted_at=row["submitted_at"],
+                                  code_guessed=json.loads(row["code_guessed"])))
+
+        return turns
+
+    def create_game_turn(self, turn):
+        sql = '''INSERT INTO game_turn (game_id, submitted_at, code_guessed) VALUES (?,?,?)'''
+        cur = self.conn.cursor()
+        cur.execute(sql, (turn.game_id, turn.submitted_at, json.dumps(turn.code_guessed)))
+        self.conn.commit()
 
     def close_connection(self):
         """ Close the connection to the SQLite database

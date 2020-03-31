@@ -35,6 +35,20 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
     background: var(--default-bg);
 }
 
+/*
+* Color helpers
+*/
+.bg-red { background: var(--red-color) !important; }
+.bg-orange { background: var(--orange-color) !important; }
+.bg-yellow { background: var(--yellow-color) !important; }
+.bg-mintgreen { background: var(--mintgreen-color) !important; }
+.bg-green { background: var(--green-color) !important; }
+.bg-aqua { background: var(--aqua-color) !important; }
+.bg-cyan { background: var(--cyan-color) !important; }
+.bg-pink { background: var(--pink-color) !important; }
+.bg-purple { background: var(--purple-color) !important; }
+.bg-brown { background: var(--brown-color) !important; }
+
 
 /*
 * Game
@@ -42,10 +56,14 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
 .game .input-pin {
     display: inline-block;
     background: var(--default-bg);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     width: 50px;
     height: 50px;
     border-radius: 50px;
+}
+.game .input-pin.hovered {
+    background-color: blue;
+    opacity: 0.5;
 }
 
 /* Turn */
@@ -111,6 +129,10 @@ h1:hover,h2:hover,.h1:hover,.h2:hover {
 }
 .game .ingame-stats .ingame-statistic h3 {
     font-size: 1.2rem;
+}
+.game .ingame-statistic.cheatmode .input-pin {
+    width: 20px;
+    height: 20px;
 }
 
 
