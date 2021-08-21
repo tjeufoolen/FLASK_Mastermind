@@ -1,4 +1,5 @@
-# PYTHON_Mastermind
+# FLASK_Mastermind
+Mastemind the game build using python and flask
 
 ## Prerequisites
 - virtualenvironment (venv)
