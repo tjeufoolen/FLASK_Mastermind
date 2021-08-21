@@ -1,4 +1,4 @@
-# PYTHON-Mastermind
+# PYTHON_Mastermind
 
 ## Prerequisites
 - virtualenvironment (venv)
