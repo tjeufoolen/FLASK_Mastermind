@@ -20,14 +20,14 @@
 To enable automatic rebuilding on code change, set the current flask app to run in a dev environment.
 See the code examples below for more information on how to set this up on windows or unix.
 
-Unix
+**Unix**
 ```
 export FLASK_APP=app.py
 export FLASK_ENV=development
 flask run
 ```
 
-Windows
+**Windows**
 ```
 set FLASK_APP=app.py
 set FLASK_ENV=development
