@@ -1,5 +1,4 @@
 # PYTHON-Mastermind
-Assessment python blok 7
 
 ## Prerequisites
 - virtualenvironment (venv)
@@ -18,9 +17,10 @@ Assessment python blok 7
 7. Enjoy! :tada:
     
 ## Development tips
-Automatic rebuilding on code change:
+To enable automatic rebuilding on code change, set the current flask app to run in a dev environment.
+See the code examples below for more information on how to set this up on windows or unix.
 
-Linux/MacOS
+Unix
 ```
 export FLASK_APP=app.py
 export FLASK_ENV=development
