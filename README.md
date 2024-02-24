@@ -1,5 +1,5 @@
-# FLASK_Mastermind
-Mastemind the game build using python and flask
+# Mastermind
+The popular game Mastermind rebuild using python and flask
 
 ## Prerequisites
 - virtualenvironment (venv)
